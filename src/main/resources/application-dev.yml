@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/${POSTGRES_DB:ecommerce}?reWriteBatchedInserts=true
+    username: ${POSTGRES_USER:ecommerce}
+    password: ${POSTGRES_PASSWORD:ecommerce}
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      leak-detection-threshold: 20000
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+  thymeleaf:
+    cache: false
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ogFjYEGiew4gMp9UTPLRI57z4JO5d+tD2IcfYiBxWDQ=}
+  storage:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    bucket: ${MINIO_BUCKET:ecommerce-media}
+    access-key: ${MINIO_ROOT_USER:minioadmin}
+    secret-key: ${MINIO_ROOT_PASSWORD:minioadmin123}
+
+logging:
+  level:
+    root: INFO
+    dev.giahuy.ecommerce: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
